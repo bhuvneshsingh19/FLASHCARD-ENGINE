@@ -65,20 +65,14 @@ export default function LandingPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               {isSignedIn ? (
-                <>
-                  <Link href="/dashboard">
-                    <Button size="lg" className="h-16 px-10 text-lg gap-3 rounded-2xl shadow-xl shadow-blue-200 transition-transform hover:scale-105 active:scale-95 bg-blue-600 hover:bg-blue-700 text-white font-bold">
-                      Go to Dashboard <ArrowRight size={20} />
-                    </Button>
-                  </Link>
-                  <Link href="/dashboard">
-                    <Button variant="secondary" size="lg" className="h-16 px-10 text-lg rounded-2xl bg-white/60 backdrop-blur-md hover:bg-white border border-gray-200 text-gray-700 shadow-sm transition-all font-bold">
-                      View My Library
-                    </Button>
-                  </Link>
-                </>
+                /* LOGGED IN: Show only one primary button */
+                <Link href="/dashboard">
+                  <Button size="lg" className="h-16 px-10 text-lg gap-3 rounded-2xl shadow-xl shadow-blue-200 transition-transform hover:scale-105 active:scale-95 bg-blue-600 hover:bg-blue-700 text-white font-bold">
+                    View My Library <ArrowRight size={20} />
+                  </Button>
+                </Link>
               ) : (
-                /* MATCHING YOUR FOLDER NAME: /signup */
+                /* LOGGED OUT: Show "Get Started" button */
                 <Link href="/signup">
                   <Button size="lg" className="h-16 px-10 text-lg gap-3 rounded-2xl shadow-xl shadow-blue-200 transition-transform hover:scale-105 active:scale-95 bg-blue-600 hover:bg-blue-700 text-white font-bold">
                     Get Started for Free <ArrowRight size={20} />
