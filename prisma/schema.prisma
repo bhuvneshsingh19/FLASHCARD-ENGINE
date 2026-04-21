@@ -1,0 +1,35 @@
+datasource db {
+  provider = "mongodb" // Or "postgresql" depending on your DB
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Deck {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String?
+  userId       String      
+  cards        Flashcard[]
+  mastery      Int         @default(0) // ADD THIS LINE
+  createdAt    DateTime    @default(now())
+}
+
+model Flashcard {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  front        String
+  back         String
+  
+  // Spaced Repetition Fields
+  interval     Int      @default(0)
+  repetition   Int      @default(0)
+  efactor      Float    @default(2.5)
+  nextReview   DateTime @default(now())
+
+  // Relationship to Deck
+  deckId       String   @db.ObjectId
+  deck         Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
+}
+
