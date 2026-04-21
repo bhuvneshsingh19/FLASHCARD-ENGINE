@@ -28,7 +28,7 @@ export default function LandingPage() {
   const { isSignedIn } = useAuth();
 
   return (
-    <div className="relative min-h-screen w-full bg-[#f8fafc] overflow-hidden font-sans selection:bg-blue-100">
+    <div className="relative min-h-[calc(100vh-64px)] w-full bg-[#f8fafc] overflow-hidden font-sans selection:bg-blue-100">
       
       {/* 1. ANIMATION LAYER */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 5 }}>
@@ -39,15 +39,18 @@ export default function LandingPage() {
 
       {/* 2. CONTENT LAYER */}
       <div className="relative z-20 w-full">
-        <main className="max-w-7xl mx-auto px-8 pt-32 pb-24 text-center">
+        {/* Reduced pt-32 to pt-16 to account for the navbar in layout.tsx */}
+        <main className="max-w-7xl mx-auto px-8 pt-16 pb-24 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="flex flex-col items-center"
           >
-            <div className="w-[300px] h-[300px] md:w-[380px] md:h-[380px] mb-12 border border-white bg-white/40 rounded-[56px] shadow-2xl shadow-blue-100 flex items-center justify-center overflow-hidden p-6 backdrop-blur-2xl transition-transform hover:scale-[1.02] duration-500">
-              <img src="/logo.jpg" alt="Logo" className="max-w-full h-auto rounded-3xl shadow-lg" />
+            {/* Note: If the logo below is what's causing the "double navbar" look, 
+                ensure it is distinct from your actual navbar logo. */}
+            <div className="w-[200px] h-[200px] md:w-[250px] md:h-[250px] mb-12 border border-white bg-white/40 rounded-[48px] shadow-2xl shadow-blue-100 flex items-center justify-center overflow-hidden p-4 backdrop-blur-2xl transition-transform hover:scale-[1.02] duration-500">
+              <img src="/logo.jpg" alt="Logo" className="max-w-full h-auto rounded-2xl shadow-lg" />
             </div>
 
             <div className="inline-flex items-center gap-2 bg-blue-100/60 text-blue-700 px-4 py-2 rounded-full text-sm font-bold mb-8 backdrop-blur-md border border-blue-200">
@@ -64,18 +67,25 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              {/* PRIMARY BUTTON: Toggle between Get Started and Dashboard */}
-              <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
-                <Button size="lg" className="h-16 px-10 text-lg gap-3 rounded-2xl shadow-xl shadow-blue-200 transition-transform hover:scale-105 active:scale-95 bg-blue-600 hover:bg-blue-700 text-white font-bold">
-                  {isSignedIn ? "Go to Dashboard" : "Get Started for Free"} <ArrowRight size={20} />
-                </Button>
-              </Link>
-              
-              {/* SECONDARY BUTTON: Only shows "View My Library" if signed in */}
-              {isSignedIn && (
-                <Link href="/dashboard">
-                  <Button variant="secondary" size="lg" className="h-16 px-10 text-lg rounded-2xl bg-white/60 backdrop-blur-md hover:bg-white border border-gray-200 text-gray-700 shadow-sm transition-all font-bold">
-                    View My Library
+              {isSignedIn ? (
+                // LOGGED IN STATE
+                <>
+                  <Link href="/dashboard">
+                    <Button size="lg" className="h-16 px-10 text-lg gap-3 rounded-2xl shadow-xl shadow-blue-200 transition-transform hover:scale-105 active:scale-95 bg-blue-600 hover:bg-blue-700 text-white font-bold">
+                      Go to Dashboard <ArrowRight size={20} />
+                    </Button>
+                  </Link>
+                  <Link href="/dashboard">
+                    <Button variant="secondary" size="lg" className="h-16 px-10 text-lg rounded-2xl bg-white/60 backdrop-blur-md hover:bg-white border border-gray-200 text-gray-700 shadow-sm transition-all font-bold">
+                      View My Library
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                // LOGGED OUT STATE
+                <Link href="/sign-up">
+                  <Button size="lg" className="h-16 px-10 text-lg gap-3 rounded-2xl shadow-xl shadow-blue-200 transition-transform hover:scale-105 active:scale-95 bg-blue-600 hover:bg-blue-700 text-white font-bold">
+                    Get Started for Free <ArrowRight size={20} />
                   </Button>
                 </Link>
               )}
