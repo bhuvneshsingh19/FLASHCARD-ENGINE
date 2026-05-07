@@ -89,10 +89,7 @@ export default function LandingPage() {
           </div>
         </main>
 
-        <footer className="border-t border-gray-200/50 py-16 text-center bg-white/20 backdrop-blur-xl">
-          <p className="text-gray-900 font-bold text-base">Bhuvnesh Singh</p>
-          <p className="text-gray-400 text-xs uppercase tracking-widest font-semibold">B.Tech AIML Student • GLA University</p>
-        </footer>
+       
       </div>
     </div>
   );
